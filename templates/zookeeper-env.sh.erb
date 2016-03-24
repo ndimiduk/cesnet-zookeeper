@@ -1,0 +1,6 @@
+export ZOOKEEPER_HOME=<%= scope.lookupvar('zookeeper::homedir') %>
+export ZOOKEEPER_LOG_DIR=<%= scope.lookupvar('zookeeper::logdir') %>
+export ZOOKEEPER_PID_DIR=<%= scope.lookupvar('zookeeper::piddir') %>/zookeeper_server.pid
+export SERVER_JVMFLAGS=-Xmx1024m
+export JAVA=$JAVA_HOME/bin/java
+export CLASSPATH=$CLASSPATH:$ZOOKEEPER_HOME/*

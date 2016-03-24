@@ -22,6 +22,35 @@ class zookeeper::config {
     alias   => 'zoo-cfg',
   }
 
+  file { "${zookeeper::confdir}/zookeeper-env.sh":
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('zookeeper/zookeeper-env.sh.erb'),
+    alias   => 'zookeeper-env.sh',
+  }
+
+  file { $zookeeper::logdir:
+    ensure => directory,
+    owner  => 'zookeeper',
+    group  => 'zookeeper',
+    mode   => '0755',
+  }
+
+  file { $zookeeper::piddir:
+    ensure => directory,
+    owner  => 'zookeeper',
+    group  => 'zookeeper',
+    mode   => '0755',
+  }
+
+  file { $zookeeper::datadir:
+    ensure => directory,
+    owner  => 'zookeeper',
+    group  => 'zookeeper',
+    mode   => '0755',
+  }
+
   $keytab = '/etc/security/keytab/zookeeper.service.keytab'
   $principal = "zookeeper/${::fqdn}@${zookeeper::realm}"
 
@@ -82,7 +111,7 @@ class zookeeper::config {
       exec { 'zookeeper-init':
         command => "zookeeper-server-initialize ${args}",
         creates => "${zookeeper::datadir}/version-2",
-        path    => '/sbin:/usr/sbin:/bin:/usr/bin',
+        path    => '/sbin:/usr/sbin:/bin:/usr/bin:/usr/hdp/current/zookeeper-server/bin',
         user    => 'zookeeper',
         require => [ File['zoo-cfg'], ],
       }

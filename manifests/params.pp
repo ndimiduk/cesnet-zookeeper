@@ -24,8 +24,12 @@ class zookeeper::params {
 
   $alternatives = "${::osfamily}-${::operatingsystem}" ? {
     /RedHat-Fedora/ => undef,
-    /Debian/        => 'cluster',
+    /Debian/        => undef,
     # https://github.com/puppet-community/puppet-alternatives/issues/18
     /RedHat/        => '',
   }
+
+  $homedir = '/usr/hdp/current/zookeeper-server'
+  $logdir = '/var/log/zookeeper'
+  $piddir = '/var/run/zookeeper'
 }

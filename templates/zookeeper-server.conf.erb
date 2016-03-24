@@ -1,0 +1,17 @@
+description "zookeeper"
+
+#
+# based on instructions from http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.4/bk_installing_manually_book/content/ref-9459670c-aa15-4dee-ac56-4552e0fcf4d4.1.html
+#
+
+start on runlevel [2345]
+stop on runlevel [016]
+
+respawn
+respawn limit 5 60
+
+kill timeout 300
+
+script
+  exec sudo -u zookeeper /bin/bash -c "export ZOOCFGDIR=<%= scope.lookupvar('zookeeper::confdir') %> ; export ZOOCFG=zoo.cfg; source <%= scope.lookupvar('zookeeper::confdir') %>/zookeeper-env.sh ; /usr/hdp/current/zookeeper-server/bin/zkServer.sh start-foreground"
+end script
