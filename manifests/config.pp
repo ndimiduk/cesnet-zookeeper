@@ -87,20 +87,22 @@ class zookeeper::config {
     }
   }
 
+  if $myid and $myid != 0 {
+    file { "${zookeeper::datadir}/myid":
+      owner   => 'zookeeper',
+      group   => 'zookeeper',
+      mode    => '0644',
+      replace => false,
+      # lint:ignore:only_variable_string
+      # (needed to convert integer to string)
+      content => "${myid}",
+      # lint:endignore
+    }
+  }
+
   case "${::osfamily}-${::operatingsystem}" {
     /RedHat-Fedora/,default: {
-      if $myid and $myid != 0 {
-        file { "${zookeeper::datadir}/myid":
-          owner   => 'zookeeper',
-          group   => 'zookeeper',
-          mode    => '0644',
-          replace => false,
-          # lint:ignore:only_variable_string
-          # (needed to convert integer to string)
-          content => "${myid}",
-          # lint:endignore
-        }
-      }
+      # pass
     }
     /Debian|RedHat/: {
       if $myid and $myid != 0 {
