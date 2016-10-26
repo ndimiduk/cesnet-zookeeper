@@ -11,6 +11,7 @@ syncLimit=5
 dataDir=<%= scope.lookupvar('zookeeper::datadir') %>
 # the port at which the clients will connect
 clientPort=2181
+quorumListenOnAllIPs=<%= scope.lookupvar('zookeeper::quorumListenOnAllIPs') %>
 <% if scope.lookupvar('zookeeper::realm') and not scope.lookupvar('zookeeper::realm').empty? -%>
 # security
 jaasLoginRenew=3600000
