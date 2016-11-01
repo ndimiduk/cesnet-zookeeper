@@ -9,6 +9,10 @@ initLimit=10
 syncLimit=5
 # the directory where the snapshot is stored.
 dataDir=<%= scope.lookupvar('zookeeper::datadir') %>
+# the number of snapshots to retain in the dataDir
+autopurge.snapRetainCount=30
+# how frequently (hours) to purge old snapshots
+autopurge.purgeInterval=24
 # the port at which the clients will connect
 clientPort=2181
 quorumListenOnAllIPs=<%= scope.lookupvar('zookeeper::quorumListenOnAllIPs') %>
