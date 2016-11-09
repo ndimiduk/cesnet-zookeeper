@@ -5,6 +5,7 @@
 class zookeeper (
   $hostnames = undef,
   $properties = undef,
+  $environment = undef,
   $quorumListenOnAllIPs = 'false',
   $realm = '',
 ) inherits zookeeper::params {

@@ -4,3 +4,8 @@ export ZOOKEEPER_PID_DIR=<%= scope.lookupvar('zookeeper::piddir') %>/zookeeper_s
 export SERVER_JVMFLAGS=-Xmx1024m
 export JAVA=$JAVA_HOME/bin/java
 export CLASSPATH=$CLASSPATH:$ZOOKEEPER_HOME/*
+<% if scope['zookeeper::environment'] -%>
+<% scope['zookeeper::environment'].each do | key, val | -%>
+export <%= key %>="<%= val %> ${<%= key %>}"
+<% end -%>
+<% end -%>
